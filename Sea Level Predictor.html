@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-image: url('waves_main.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+    
+    #sliderContainer {
+      margin-top: 20px;
+    }
+
+    #outputColumn2 {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+
+    #outputColumn3 {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+
+  </style>
+</head>
+<body>
+    <h1>Sea Level Predictor</h1>
+
+    <input type="file" id="csvFileInput" accept=".csv" />
+    <div id="sliderContainer">
+        <label for="slider">Select Row:</label>
+        <input type="range" id="slider" min="1" value="1" />
+    </div>
+    <div id="outputColumn2"></div>
+    <div id="outputColumn3"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const csvFileInput = document.getElementById('csvFileInput');
+        const slider = document.getElementById('slider');
+        const outputColumn2 = document.getElementById('outputColumn2');
+        const outputColumn3 = document.getElementById('outputColumn3');
+
+        let data = [];
+
+        csvFileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+            data = e.target.result
+                .split('\n')
+                .map(row => row.split(','));
+
+            // Remove header row
+            data.shift();
+            
+            slider.max = data.length;
+
+            slider.addEventListener('input', () => {
+                const rowIndex = slider.value - 1;
+                const valueColumn2 = data[rowIndex][3]; // Column two (index 1)
+                const valueColumn3 = data[rowIndex][2]; // Column three (index 2)
+                outputColumn2.textContent = `For Date: ${valueColumn2}`;
+                outputColumn3.textContent = `Relative Sea Level: ${valueColumn3}`;
+            });
+
+            slider.dispatchEvent(new Event('input'));
+            };
+
+            reader.readAsText(file);
+        });
+        });
+    </script>
+</body>
+</html>
