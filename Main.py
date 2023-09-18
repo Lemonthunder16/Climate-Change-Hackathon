@@ -44,5 +44,12 @@ Plotting.plot_the_loss_curve(epochs, history["root_mean_squared_error"], history
 results = my_model.evaluate(Test_TimeFrame, Test_Monthly_MSL, batch_size=batch_size)
 print(results)
 
-
+#Model predicts rising levels for the next fifteen years from 2015
+pred_data=Functions.PredData()
+Pred_TimeFrame = np.column_stack((pred_data['Year'],pred_data['Month']))
+prediction=my_model.predict(Pred_Timeframe)
+pred_data["Monthly_MSL"]=prediction
+pred_data["Date"]=pd.to_datetime(pred_data[['Year', 'Month']].assign(day=1))
+print(pred_data)
+pred_data.to_csv(r'C:\Users\meera\Documents\BTech CSE spl. AIML\VS code\Hackathon\SeaLvls_Predicted.csv',index=False)
 
