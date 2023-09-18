@@ -1,3 +1,5 @@
+#Trying it out by encoding date as a floating point year
+
 import pandas as pd
 import numpy as np
 import Functions
