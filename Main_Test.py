@@ -1,4 +1,5 @@
-#Trying it out by encoding date as a floating point year
+#Try it out by encoding date as a floating point year
+#Remember to make changes in Functions.py by making input_dimension=1 in the dense layer
 
 import pandas as pd
 import numpy as np
