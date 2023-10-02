@@ -1,11 +1,13 @@
 import tensorflow as tf
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 
 #Pre Processing to be done on the data set (Train and Test)
 def scale(data):
-    scale_factor=10
-    data["Monthly_MSL"]/=scale_factor
-    return data
+    scaler = MinMaxScaler()
+    scaler.fit(data)
+    normalized_data = scaler.transform(data)
+    return normalized_data
 
 #Functions to build and train the model
 def build_model(my_learning_rate):
