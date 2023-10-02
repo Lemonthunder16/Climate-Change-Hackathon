@@ -10,7 +10,7 @@ test_data=pd.read_csv(r'C:\Users\meera\Documents\BTech CSE spl. AIML\VS code\Hac
 
 Plotting.plot_the_data(train_data)
 
-#Data is pre-processed to shortlist neccessary elements required for the regression model
+#Normalizing the data
 train_data=Functions.scale(train_data)
 test_data=Functions.scale(test_data)
 
